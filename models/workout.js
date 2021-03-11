@@ -5,7 +5,16 @@ const workoutSchema =new Schema({
         type: Date,
         default:new Date().setDate(new Date().getDate())
     },
-    excerises: Array
+    exercises: [
+        {
+            type: String,
+            name: String,
+            duration: Number,
+            weight: Number,
+            reps: Number,
+            sets: Number
+        }
+    ]
 })
 
 const Workout =mongoose.model("Workout", workoutSchema)
