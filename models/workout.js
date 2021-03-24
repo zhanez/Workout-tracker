@@ -5,17 +5,28 @@ const workoutSchema =new Schema({
         type: Date,
         default:new Date().setDate(new Date().getDate())
     },
-    exercises: [
-        {
-            type: String,
-            name: String,
-            duration: Number,
-            weight: Number,
-            reps: Number,
-            sets: Number
-        }
-    ]
-})
+    exercises:  Array
+},
+{
+    toObject: {
+    virtuals: true
+    },
+    toJSON: {
+    virtuals: true 
+    }
+  })
+
+workoutSchema
+.virtual('totalDuration')
+.get(function () {
+
+    var sum = 0
+    for(var i=0; i<this.exercises.length; i++){
+        sum = sum + this.exercises[i].duration
+    }
+
+  return sum
+});
 
 const Workout =mongoose.model("Workout", workoutSchema)
 module.exports =Workout

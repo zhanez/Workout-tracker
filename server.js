@@ -11,8 +11,13 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
+app.use(require("./routes/html"))
+app.use(require("./routes/api"))
+
+
 const mongoose =require("mongoose");
-mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost:workout");
+mongoose.connect(process.env.MONGODB_URI ||
+    "mongodb://localhost/workout",{useNewUrlParser: true});
 
 
 app.listen(PORT, ()=>{
